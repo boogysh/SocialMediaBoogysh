@@ -26,7 +26,7 @@ const LoginPage = () => {
     e.preventDefault();
     if (val.email && val.password) {
       // const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
-      const loggedInResponse = await fetch("https://sm-boogysh-server-git-main-boogysh.vercel.app/auth/login", {
+      const loggedInResponse = await fetch(`${process.env.REACT_APP_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userValues),

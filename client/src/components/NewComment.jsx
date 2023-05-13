@@ -47,7 +47,7 @@ const NewComment = ({ userUrl, postId, postsUpdate, setPostsUpdate }) => {
   const patchComment = async () => {
     const response = await fetch(
       // `http://localhost:3001/posts/${postId}/comment`,
-      `https://sm-boogysh-server-git-main-boogysh.vercel.app/posts/${postId}/comment`,
+      `${process.env.REACT_APP_URL}/posts/${postId}/comment`,
       {
         method: "PATCH",
         headers: {

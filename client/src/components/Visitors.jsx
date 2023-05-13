@@ -17,7 +17,7 @@ const Visitors = ({ userId, setShowVisitors }) => {
     const getUserVisitors = async () => {
       const response = await fetch(
         // `http://localhost:3001/users/${userId}/visitors`,
-        `https://sm-boogysh-server-git-main-boogysh.vercel.app/users/${userId}/visitors`,
+        `${process.env.REACT_APP_URL}/users/${userId}/visitors`,
         {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
@@ -34,7 +34,7 @@ const Visitors = ({ userId, setShowVisitors }) => {
   const resetUserVisitors = async () => {
     const response = await fetch(
       // `http://localhost:3001/users/${userId}/views/reset`,
-      `https://sm-boogysh-server-git-main-boogysh.vercel.app/users/${userId}/views/reset`,
+      `${process.env.REACT_APP_URL}/users/${userId}/views/reset`,
       {
         method: "PATCH",
         headers: {

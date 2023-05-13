@@ -39,7 +39,7 @@ const SocialProfiles = ({
     if (validURL(twitterValue)) {
       const response = await fetch(
         // `http://localhost:3001/users/${userId}/accounts/twitter`,
-        `https://sm-boogysh-server-git-main-boogysh.vercel.app/users/${userId}/accounts/twitter`,
+        `${process.env.REACT_APP_URL}/users/${userId}/accounts/twitter`,
         {
           method: "PATCH",
           headers: {
@@ -60,7 +60,7 @@ const SocialProfiles = ({
     if (validURL(linkedinValue)) {
       const response = await fetch(
         // `http://localhost:3001/users/${userId}/accounts/linkedin`,
-        `https://sm-boogysh-server-git-main-boogysh.vercel.app/users/${userId}/accounts/linkedin`,
+        `${process.env.REACT_APP_URL}/users/${userId}/accounts/linkedin`,
         {
           method: "PATCH",
           headers: {

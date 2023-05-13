@@ -53,7 +53,7 @@ const SignIn = () => {
     ) {
       const savedUserResponse = await axios.post(
         // `http://localhost:3001/auth/register`,
-        `https://sm-boogysh-server-git-main-boogysh.vercel.app/auth/register`,
+        `${process.env.REACT_APP_URL}/auth/register`,
         newUser,
         {
           headers: {

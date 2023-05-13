@@ -60,8 +60,7 @@ const MyPostWidget = () => {
 
       const response = await axios.post(
         // `http://localhost:3001/posts`,
-        // `https://sm-boogysh-server-git-main-boogysh.vercel.app/posts`,
-        `${process.env.REACT_APP_POSTS_URL}`,
+        `${process.env.REACT_APP_URL}/posts`,
         formData,
         {
           headers: {

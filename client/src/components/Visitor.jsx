@@ -13,7 +13,7 @@ const Visitor = ({ userId, friendId, name, visitedAt, url }) => {
   const visitProfile = async () => {
     const response = await fetch(
       // `http://localhost:3001/users/${userId}/${friendId}/views`,
-      `https://sm-boogysh-server-git-main-boogysh.vercel.app/users/${userId}/${friendId}/views`,
+      `${process.env.REACT_APP_URL}/users/${userId}/${friendId}/views`,
 
       // imprtant to keep friendId even friendId === vistorid,
       // onclick on visitorName, to register currentUser like a visitor onVistor account

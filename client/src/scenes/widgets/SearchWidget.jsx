@@ -25,7 +25,7 @@ const SearchWidget = ({ userId, showSearchWidget, setShowSearchWidget }) => {
     console.log("searchValue", searchValue);
 
     // const response = await fetch(`http://localhost:3001/users`, {
-    const response = await fetch(`https://sm-boogysh-server-git-main-boogysh.vercel.app/users`, {
+    const response = await fetch(`${process.env.REACT_APP_URL}/users`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
