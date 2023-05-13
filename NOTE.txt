@@ -68,7 +68,10 @@ del form
 +   post without conten => not authorized to delete ???
 +   guest users date.now???
 +   guests.length color???
--   upload on github
++   upload on github
++   upload on Vercel 
+-   delete post with image
+-   guests evenGuest -> 4 times
 
 !!! Friend - 2
     NewComment - 1
@@ -89,6 +92,8 @@ del form
     UserWidget - 2
 
     https://sm-boogysh-server-git-main-boogysh.vercel.app
+
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NWY2YzkzYmRhMzE1YmMwMWNmMjYzMSIsImlhdCI6MTY4Mzk3NzA0NH0.cFGcYfCUOW-gFG5uWT5NlBb1vWHDaRQkyqzXBwyem3Q
     
 
 
