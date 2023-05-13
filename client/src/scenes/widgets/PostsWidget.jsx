@@ -13,8 +13,8 @@ const PostsWidget = ({ userId }) => {
 
   // //--------GET POSTS-----------------------------
 
-  const postsUrl = "http://localhost:3001/posts";
-  // const postsUrl = "https://social-media-boogysh-git-main-boogysh.vercel.app/posts";
+  // const postsUrl = "http://localhost:3001/posts";
+  const postsUrl = "https://sm-boogysh-server-git-main-boogysh.vercel.app/posts";
   const { posts } = useGetPosts(postsUrl, token, isProfile, postsUpdate);
   //!!! postsUpdate force posts to update, onClick on send-comment-btn
   //----------------------------

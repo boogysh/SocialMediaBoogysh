@@ -54,8 +54,8 @@ const PostWidget = ({
 
   // PATCH LIKE
   const patchLike = async () => {
-    const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
-    // const response = await fetch(`https://social-media-boogysh-git-main-boogysh.vercel.app/posts/${postId}/like`, {
+    // const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
+    const response = await fetch(`https://sm-boogysh-server-git-main-boogysh.vercel.app/posts/${postId}/like`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -71,8 +71,8 @@ const PostWidget = ({
   //------------------------------------------
 
   const deletePost = async () => {
-    const response = await fetch(`http://localhost:3001/posts/${postId}`, {
-    // const response = await fetch(`https://social-media-boogysh-git-main-boogysh.vercel.app/posts/${postId}`, {
+    // const response = await fetch(`http://localhost:3001/posts/${postId}`, {
+    const response = await fetch(`https://sm-boogysh-server-git-main-boogysh.vercel.app/posts/${postId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

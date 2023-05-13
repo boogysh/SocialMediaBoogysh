@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const Visitor = ({userId, friendId, name, visitedAt, url }) => {
+const Visitor = ({ userId, friendId, name, visitedAt, url }) => {
   const { token } = useSelector((state) => state.userReducer);
   const { thm } = useSelector((state) => state.themeReducer);
 
@@ -12,9 +12,9 @@ const Visitor = ({userId, friendId, name, visitedAt, url }) => {
   // VIEWS
   const visitProfile = async () => {
     const response = await fetch(
-      `http://localhost:3001/users/${userId}/${friendId}/views`,
-      // `https://social-media-boogysh-git-main-boogysh.vercel.app/users/${userId}/${friendId}/views`,
-      
+      // `http://localhost:3001/users/${userId}/${friendId}/views`,
+      `https://sm-boogysh-server-git-main-boogysh.vercel.app/users/${userId}/${friendId}/views`,
+
       // imprtant to keep friendId even friendId === vistorid,
       // onclick on visitorName, to register currentUser like a visitor onVistor account
       {
@@ -28,8 +28,6 @@ const Visitor = ({userId, friendId, name, visitedAt, url }) => {
     const data = await response.json();
     console.log(data);
   };
-
-   
 
   return (
     <div>

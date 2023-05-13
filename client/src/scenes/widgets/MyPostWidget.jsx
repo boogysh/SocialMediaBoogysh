@@ -59,8 +59,8 @@ const MyPostWidget = () => {
       payload && formData.append("payloadType", contentType);
 
       const response = await axios.post(
-        `http://localhost:3001/posts`,
-        // `https://social-media-boogysh-git-main-boogysh.vercel.app/posts`,
+        // `http://localhost:3001/posts`,
+        `https://sm-boogysh-server-git-main-boogysh.vercel.app`,
         formData,
         {
           headers: {

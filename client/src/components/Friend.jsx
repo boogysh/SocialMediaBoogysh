@@ -21,8 +21,8 @@ const Friend = ({ isSameUser, friendId, name, subtitle, createdAt, url }) => {
 
   const patchFriend = async () => {
     const response = await fetch(
-      `http://localhost:3001/users/${_id}/${friendId}`,
-      // `https://social-media-boogysh-git-main-boogysh.vercel.app/users/${_id}/${friendId}`,
+      // `http://localhost:3001/users/${_id}/${friendId}`,
+      `https://sm-boogysh-server-git-main-boogysh.vercel.app/users/${_id}/${friendId}`,
       {
         method: "PATCH",
         headers: {
@@ -38,8 +38,8 @@ const Friend = ({ isSameUser, friendId, name, subtitle, createdAt, url }) => {
   // VIEWS
   const visitProfile = async () => {
     const response = await fetch(
-      `http://localhost:3001/users/${_id}/${friendId}/views`,
-      // `https://social-media-boogysh-git-main-boogysh.vercel.app/users/${_id}/${friendId}/views`,
+      // `http://localhost:3001/users/${_id}/${friendId}/views`,
+      `https://sm-boogysh-server-git-main-boogysh.vercel.app/users/${_id}/${friendId}/views`,
       {
         method: "PATCH",
         headers: {

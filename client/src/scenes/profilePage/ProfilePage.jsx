@@ -17,8 +17,8 @@ const ProfilePage = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      const response = await fetch(`http://localhost:3001/users/${userId}`, {
-      // const response = await fetch(`https://social-media-boogysh-git-main-boogysh.vercel.app/${userId}`, {
+      // const response = await fetch(`http://localhost:3001/users/${userId}`, {
+      const response = await fetch(`https://sm-boogysh-server-git-main-boogysh.vercel.app/users/${userId}`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       });

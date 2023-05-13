@@ -52,8 +52,8 @@ const SignIn = () => {
       image
     ) {
       const savedUserResponse = await axios.post(
-        `http://localhost:3001/auth/register`,
-        // `https://social-media-boogysh-git-main-boogysh.vercel.app/auth/register`,
+        // `http://localhost:3001/auth/register`,
+        `https://sm-boogysh-server-git-main-boogysh.vercel.app/auth/register`,
         newUser,
         {
           headers: {

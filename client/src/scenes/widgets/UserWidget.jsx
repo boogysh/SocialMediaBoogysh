@@ -25,8 +25,8 @@ const UserWidget = ({ userId }) => {
 
   useEffect(() => {
     const getUser = async () => {
-      const response = await fetch(`http://localhost:3001/users/${userId}`, {
-      // const response = await fetch(`https://social-media-boogysh-git-main-boogysh.vercel.app/users/${userId}`, {
+      // const response = await fetch(`http://localhost:3001/users/${userId}`, {
+      const response = await fetch(`https://sm-boogysh-server-git-main-boogysh.vercel.app/users/${userId}`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -47,8 +47,8 @@ const UserWidget = ({ userId }) => {
   // eslint-disable-line react-hooks/exhaustive-deps
 
   // //--------GET POSTS-----------------------------
-  const postsUrl = "http://localhost:3001/posts";
-  // const postsUrl = "https://social-media-boogysh-git-main-boogysh.vercel.app/posts";
+  // const postsUrl = "http://localhost:3001/posts";
+  const postsUrl = "https://sm-boogysh-server-git-main-boogysh.vercel.app/posts";
   const { posts } = useGetPosts(postsUrl, token, isProfile);
   //!!! postsUpdate force posts to update, onClick on send-comment-btn
   //----------------------------
