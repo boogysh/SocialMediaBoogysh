@@ -1,0 +1,103 @@
+// eslint-disable-line react-hooks/exhaustive-deps
++   responsive
++   navbar
++   profile page
++   login page
++   signup page
+del form
++   utiliser mes regex
++   profile page -> go to profile post
+
+.   registration
+
+
++   import ../../../../../../
++   commment config.js
+
++   like
+
++   classNa error
++   simplifier le state ( del toolkit) 
++   dark mode
+
++   images in aws, links in mongoDB
++   userWidget friends-NR => update simultaneously
++   comments??? 
+
+
+.   redux->friends-> is not in user ???
+
++   register: sans image donne erorr. rajouter boreder red
++   all inputs border red
++   time stamps in comment
++   borderRed on sending post without text-comment
++   dark mode text??
++   posts sort by
++   payloadType ????? cause a problem 
++   click on choose a image but select a video => problem
++   Friend undefined undefined undefined???
++   post created = -2h
++   adding video 
++   Click on profile ->  link to /profileId
++   profilePage -> view profile friendlist /// !!! monitoring !!! ///
+
+.   profilePage hide mypost/not sur === choise
+.   logOut change
+
++   comment whiteSpace: 'pre-wrap' , and newComment onKeyUp if key===13 setComment(...comment + "\n")
++   comments -> show allComments ->  overflow hidden
++   separer les image: users & posts
++   my comment after sending hide input file
++   search user
++   add xs responsive
++   comment < text enter + > = [object object] ???
++   viewed profile of your posts
++   viewed profile of your posts -> click -> open list of visitors
++   empty list of visitors
++   likes of your posts
++   comments 
++   my post btn close
++   register img size, double click
++   comment === 0, body have height??? => the list is empty
+
+.   1 jour, 3hs
+.   getUser on homePage || leave guests.length from in navBar with redux dispatch
+
++   Guest exclude myself
++   post without content  error ???
++   post without conten => not authorized to delete ???
++   guest users date.now???
++   guests.length color???
+-   upload on github
+
+!!! Friend - 2
+    NewComment - 1
+    SocialProfiles - 2
+    Visitor - 1
+    Visitors - 2
+    +
+    LoginPage - 1
+    ProfilePage - 1
+    SignInPage - 1
+    +
+    FrienListWidget - 1
+    MyPostWidget - 1
+    PostsWidget - 1 
+    PostWidgets -  2
+    SearchWidget - 1 
+    UserWidget - 2
+    
+
+
+
+
+
+
+
+    
+
+
+
+
+
+  
