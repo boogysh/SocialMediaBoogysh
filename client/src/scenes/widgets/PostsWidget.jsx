@@ -3,8 +3,7 @@ import PostWidget from "./PostWidget";
 import { useGetPosts } from "../../hooks/useGetPosts/UseGetPosts";
 import { useSelector } from "react-redux";
 import Error500 from "../Errors/Error500";
-import Loader from "../../components/Loader/Loader";
-// import { RECIEVIED_COMMENTS } from "../../redux/actions";
+// import Loader from "../../components/Loader/Loader";
 
 const PostsWidget = ({ userId }) => {
   const [postsUpdate, setPostsUpdate] = useState(0);
@@ -14,7 +13,8 @@ const PostsWidget = ({ userId }) => {
   // //--------GET POSTS-----------------------------
 
   const postsUrl = `${process.env.REACT_APP_URL}/posts`;
-  const { posts, isLoading, error } = useGetPosts(
+  // const { posts, isLoading, error } = useGetPosts(
+  const { posts,  error } = useGetPosts(
     postsUrl,
     token,
     isProfile,
@@ -23,9 +23,10 @@ const PostsWidget = ({ userId }) => {
   //!!! postsUpdate force posts to update, onClick on send-comment-btn
 
   if (error) return <Error500 />;
-  return isLoading ? (
-    <Loader />
-  ) : (
+  // return isLoading ? (
+    // <Loader />
+  //) :
+  return (
     <section>
       {posts?.length > 0 &&
         posts.map(

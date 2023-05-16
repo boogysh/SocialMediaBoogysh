@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { GoLocation } from "react-icons/go";
 import { BsBriefcase } from "react-icons/bs";
-import { useGetPosts } from "../../hooks/useGetPosts/UseGetPosts";
+// import { useGetPosts } from "../../hooks/useGetPosts/UseGetPosts";
 import Visitors from "../../components/Visitors";
 import SocialProfiles from "../../components/SocialProfiles";
 import { GUESTS, PROFILE } from "../../redux/actions";
@@ -19,6 +19,7 @@ const UserWidget = ({ userId }) => {
   const [showVisitors, setShowVisitors] = useState(false);
   const [updateUser, setUpdateUser] = useState(0);
   const { token } = useSelector((state) => state.userReducer);
+  const { posts } = useSelector((state) => state.userReducer);
   const loggedUserId = useSelector((state) => state.userReducer.user._id);
   const { thm } = useSelector((state) => state.themeReducer);
  
@@ -28,7 +29,6 @@ const UserWidget = ({ userId }) => {
   const isFriend = userFriends?.find((friend) => friend._id === userId);
   useEffect(() => {}, [isFriend, userFriends?.length]);
 
-  const isProfile = window.location.href.includes(userId); //getPosts
 
   console.log("userId", userId);
   console.log("loggedUserId", loggedUserId);
@@ -70,9 +70,10 @@ const UserWidget = ({ userId }) => {
   // eslint-disable-line react-hooks/exhaustive-deps
 
   // //--------GET POSTS-----------------------------
-  // const postsUrl = "http://localhost:3001/posts";
-  const postsUrl = `${process.env.REACT_APP_URL}/posts`;
-  const { posts } = useGetPosts(postsUrl, token, isProfile);
+  // const isProfile = window.location.href.includes(userId); //getPosts
+
+  // const postsUrl = `${process.env.REACT_APP_URL}/posts`;
+  // const { posts } = useGetPosts(postsUrl, token, isProfile);
   //!!! postsUpdate force posts to update, onClick on send-comment-btn
   //----------------------------
   //GET DIFFERNTS IMPRESSIONS
