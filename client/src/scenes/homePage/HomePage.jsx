@@ -32,6 +32,7 @@ const HomePage = () => {
         >
           {/* <section className=" h-auto w-[100%] sm:w-[100%] md:w-[37%] lg:w-[26%]"> */}
           <section className=" h-auto w-[100%] sm:w-[100%] md:w-[37%] 2xl:w-[26%]">
+            {/* <Test/> */}
             <UserWidget userId={_id} />
             <div className="hidden md:block">
               <PublicityWidget />

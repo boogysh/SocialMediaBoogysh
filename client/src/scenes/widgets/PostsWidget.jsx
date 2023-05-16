@@ -2,37 +2,31 @@ import { useState } from "react";
 import PostWidget from "./PostWidget";
 import { useGetPosts } from "../../hooks/useGetPosts/UseGetPosts";
 import { useSelector } from "react-redux";
+import Error500 from "../Errors/Error500";
+import Loader from "../../components/Loader/Loader";
 // import { RECIEVIED_COMMENTS } from "../../redux/actions";
 
 const PostsWidget = ({ userId }) => {
   const [postsUpdate, setPostsUpdate] = useState(0);
-  // const [recieviedComments, setRecieviedComments] = useState(0);
-
   const { token } = useSelector((state) => state.userReducer);
   const isProfile = window.location.href.includes(userId);
 
   // //--------GET POSTS-----------------------------
 
-  // const postsUrl = "http://localhost:3001/posts";
   const postsUrl = `${process.env.REACT_APP_URL}/posts`;
-  const { posts } = useGetPosts(postsUrl, token, isProfile, postsUpdate);
+  const { posts, isLoading, error } = useGetPosts(
+    postsUrl,
+    token,
+    isProfile,
+    postsUpdate
+  );
   //!!! postsUpdate force posts to update, onClick on send-comment-btn
-  //----------------------------
 
-  //  //GET DIFFERNTS IMPRESSIONS
-  //  useEffect(() => {
-  //    const userPosts = posts.filter((post) => post.userId === _id);
-  //    console.log("userPosts", userPosts);
-
-  //    const commentsLengthArray = [];
-  //    userPosts.forEach((post) => commentsLengthArray.push(post.comments.length));
-  //    const result = commentsLengthArray.reduce((acc, curr) => acc + curr, 0);
-  //    console.log(" commentsCount", result);
-  //    // setRecievedCommentsCount(result);
-  //  }, []); //eslint-disable-line react-hooks/exhaustive-deps
-
-  return (
-    <>
+  if (error) return <Error500 />;
+  return isLoading ? (
+    <Loader />
+  ) : (
+    <section>
       {posts?.length > 0 &&
         posts.map(
           ({
@@ -71,7 +65,7 @@ const PostsWidget = ({ userId }) => {
             />
           )
         )}
-    </>
+    </section>
   );
 };
 
