@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import multer from "multer";
 // import helmet from "helmet";
 // import morgan from "morgan";
+// import bodyParser from "body-parser";
+
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
@@ -12,22 +14,21 @@ import { register } from "./controllers/auth.js";
 import { createPost } from "./controllers/posts.js";
 import { verifyToken } from "./middleware/auth.js";
 
-
 /* CONFIG */
 dotenv.config();
 const app = express();
 app.use(express.json());
 // app.use(helmet());
 // app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-
 // app.use(morgan("common"));
+// app.use(bodyParser.json({ limit: "30mb", extended: true }));
+// app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
-app.use(express.json()); //const bodyParser = require("body-parser");
+// app.use(express.json()); //const bodyParser = require("body-parser");
 app.use(cors());
 
 /* FILE STORAGE */
 const storage = multer.memoryStorage();
-
 const upload = multer({ storage });
 
 /* ROUTES WITH FILES */
@@ -41,6 +42,7 @@ app.use("/posts", postRoutes);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 3001;
+// const PORT = process.env.PORT;
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -52,8 +54,6 @@ mongoose
 app.listen(PORT, (error) => {
   error ? console.log(error) : console.log(`Server is running on port ${PORT}`);
 });
-
-
 
 // import express from "express";
 // import bodyParser from "body-parser";
@@ -71,7 +71,6 @@ app.listen(PORT, (error) => {
 // import { register } from "./controllers/auth.js";
 // import { createPost } from "./controllers/posts.js";
 // import { verifyToken } from "./middleware/auth.js";
-
 
 // /* CONFIG */
 // const __filename = fileURLToPath(import.meta.url);
@@ -127,4 +126,3 @@ app.listen(PORT, (error) => {
 // app.listen(PORT, (error) => {
 //   error ? console.log(error) : console.log(`Server is running on port ${PORT}`);
 // });
-

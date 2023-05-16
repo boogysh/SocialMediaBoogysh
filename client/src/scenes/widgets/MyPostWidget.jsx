@@ -120,7 +120,7 @@ const MyPostWidget = () => {
           )}
 
           <div className=" flex items-center border border-gray-400 rounded-[5px] w-full h-auto p-5 mb-3 ">
-            <div className="relative border-[3px] border-dashed border-blue-200 w-full h-full px-5 cursor-pointer">
+            <div className="relative border-[3px] border-dashed border-orange-500 w-full h-full px-5 cursor-pointer">
               <input
                 className="opacity-0 w-full h-full absolute"
                 type="file"

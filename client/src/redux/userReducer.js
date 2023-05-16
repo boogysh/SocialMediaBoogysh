@@ -1,9 +1,9 @@
 const initialState = {
-  // mode: "light",
-  user: null,
   token: null,
-  friends: null,
-  // post: null,
+  user: null,
+  profile: null,
+  userFriends: null,
+  profileFriends: null,
   posts: [],
   guests: [],
 };
@@ -31,11 +31,18 @@ function userReducer(state = initialState, action) {
         token: action.payload.token,
       };
 
-    case "FRIENDS":
+    case "USER_FRIENDS":
       return {
         ...state,
         // user: action.payload.user.friends
-        friends: action.payload,
+        userFriends: action.payload,
+      };
+
+      case "PROFILE_FRIENDS":
+      return {
+        ...state,
+        // user: action.payload.user.friends
+        profileFriends: action.payload,
       };
 
     case "POSTS":
@@ -61,10 +68,16 @@ function userReducer(state = initialState, action) {
         guests: action.payload,
       };
 
-      case "RECIEVIED_COMMENTS":
+    case "RECIEVIED_COMMENTS":
       return {
         ...state,
         recievedComments: action.payload,
+      };
+
+    case "PROFILE":
+      return {
+        ...state,
+        profile: action.payload,
       };
 
     default:

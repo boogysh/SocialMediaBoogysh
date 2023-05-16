@@ -11,9 +11,10 @@ import { useState } from "react";
 const HomePage = () => {
   const [showSearchWidget, setShowSearchWidget] = useState(false);
 
-  // const { _id, viewedProfile } = useSelector((state) => state.userReducer.user);
   const { _id } = useSelector((state) => state.userReducer.user);
+  const { user } = useSelector((state) => state.userReducer);
   const { thm } = useSelector((state) => state.themeReducer);
+  console.log("userFromHome¨Page", user);
 
   return (
     <main>
@@ -35,9 +36,8 @@ const HomePage = () => {
             <div className="hidden md:block">
               <PublicityWidget />
             </div>
-            {/* <div className="hidden md:block lg:hidden mt-5"> */}
             <div className="hidden md:block 2xl:hidden mt-5">
-              <FriendListWidget userId={_id} />
+              <FriendListWidget />
             </div>
           </section>
 

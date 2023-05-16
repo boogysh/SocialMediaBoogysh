@@ -87,6 +87,7 @@ const SocialProfiles = ({
 
       {/*----------------- TWITTER -------------------*/}
       <SocialProfile
+        userId={userId}
         SM_Name="Twitter"
         SM_Url={twitterUrl}
         SMValue={twitterValue}
@@ -102,6 +103,7 @@ const SocialProfiles = ({
 
       {/*------------- LINKEDIN--------------------- */}
       <SocialProfile
+        userId={userId}
         SM_Name={"Linkedin"}
         SM_Url={linkedinUrl}
         SMValue={linkedinValue}

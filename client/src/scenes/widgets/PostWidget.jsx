@@ -17,7 +17,6 @@ const PostWidget = ({
   name,
   description,
   location,
-  userPicturePath,
   likes,
   comments,
   postImgUrl,
@@ -27,42 +26,38 @@ const PostWidget = ({
   setPostsUpdate,
   createdAt,
 }) => {
-  const [isSameUser, setIsSameUser] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [showDotsMenu, setShowDotsMenu] = useState(false);
   const [showShareMenu, setShowShareMenu] = useState(false);
-  // const [authorizationMessage, setAuthorizationMessage] = useState(null);
 
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.userReducer);
+
   const loggedInUserId = useSelector((state) => state.userReducer.user._id);
   const { thm } = useSelector((state) => state.themeReducer);
 
-  const sameUser = postUserId === loggedInUserId;
-  // console.log("sameUser", sameUser);
+  const userIdEgalPostUserId = postUserId === loggedInUserId;
 
   //----------
-  useEffect(() => {
-    sameUser && setIsSameUser(true);
-  }, [sameUser]);
 
   //------------
   const isLiked = Boolean(likes[loggedInUserId]);
   // console.log("isLiked", isLiked);
   const likeCount = Object.keys(likes).length;
-  // const commentsCount = Object.keys(comments).length;
 
   // PATCH LIKE
   const patchLike = async () => {
-    // const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
-    const response = await fetch(`${process.env.REACT_APP_URL}/posts/${postId}/like`, {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId: loggedInUserId }),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_URL}/posts/${postId}/like`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: loggedInUserId }),
+      }
+    );
     const updatedPost = await response.json();
     dispatch(POST({ post: updatedPost }));
     setPostsUpdate(postsUpdate + 1); // forcing to update the page after liking
@@ -71,19 +66,19 @@ const PostWidget = ({
   //------------------------------------------
 
   const deletePost = async () => {
-    // const response = await fetch(`http://localhost:3001/posts/${postId}`, {
-    const response = await fetch(`${process.env.REACT_APP_URL}/posts/${postId}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId: loggedInUserId }),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_URL}/posts/${postId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: loggedInUserId }),
+      }
+    );
     const notAuthorized = await response.json();
-    console.log("notAuthorized", notAuthorized.message);
-    // setAuthorizationMessage(`${message}`);
-    // setAuthorizationMessage(notAuthorized.message);
+    console.log("Authorized-?:", notAuthorized.message);
 
     setPostsUpdate(postsUpdate + 1); // forcing to update the page after liking
   };
@@ -95,16 +90,17 @@ const PostWidget = ({
           friendId={postUserId}
           name={name}
           subtitle={location}
-          userPicturePath={userPicturePath}
-          isSameUser={isSameUser}
           url={userUrl}
           createdAt={createdAt}
+          userIdEgalPostUserId={userIdEgalPostUserId}
+          hideButton
         />
-        {sameUser && (
+        {/* DOTS MENU  */}
+        {userIdEgalPostUserId && (
           <div
             className={`flex  border-[1px] ${thm.border.neutral.medium} h-fit rounded-full`}
           >
-            {showDotsMenu && (
+            {showDotsMenu && userIdEgalPostUserId && (
               <button
                 onClick={deletePost}
                 className={`w-7 h-7 flex ml-px mr-4 justify-center items-center rounded-full ${thm.bg.neutral.light_hover}`}
@@ -185,8 +181,7 @@ const PostWidget = ({
         >
           {showShareMenu && (
             <>
-             
-              <ShareList 
+              <ShareList
                 //  title={title}
                 //  id={id}
                 url={`${window.location.href}#${postId}`}

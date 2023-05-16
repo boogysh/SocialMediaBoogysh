@@ -11,9 +11,15 @@ export const LOGOUT = (payload) => {
   };
 };
 
-export const FRIENDS = (payload) => {
+export const USER_FRIENDS = (payload) => {
   return {
-    type: "FRIENDS",
+    type: "USER_FRIENDS",
+    payload: payload,
+  };
+};
+export const PROFILE_FRIENDS = (payload) => {
+  return {
+    type: "PROFILE_FRIENDS",
     payload: payload,
   };
 };
@@ -41,6 +47,13 @@ export const GUESTS = (payload) => {
 export const RECIEVIED_COMMENTS = (payload) => {
   return {
     type: "RECIEVIED_COMMENTS",
+    payload: payload,
+  };
+};
+
+export const PROFILE = (payload) => {
+  return {
+    type: "PROFILE",
     payload: payload,
   };
 };

@@ -10,9 +10,10 @@ import {
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 // const bucketName = process.env.BUCKET_NAME;
-//const bucketRegion = process.env.BUCKET_REGION;
-//const accessKey = process.env.ACCESS_KEY;
-//const secretAccessKey = process.env.SECRET_ACCESS_KEY;
+// // const bucketRegion = process.env.BUCKET_REGION;
+// const accessKey = process.env.ACCESS_KEY;
+// const secretAccessKey = process.env.SECRET_ACCESS_KEY;
+//
 const bucketName = "social-media-boogysh";
 const bucketRegion = "eu-west-3";
 const accessKey = "AKIARRO4ZLJBCQJBAZUI";
@@ -109,24 +110,32 @@ export const createPost = async (req, res) => {
 export const deletePost = async (req, res) => {
   try {
     const { id } = req.params;
-    //
+    console.log("id", id);
     const { userId } = req.body;
     // const { userId } = req.auth;
     //
     const post = await Post.findById(id);
+    console.log("post", post);
+    console.log("post.postImgName", post.postImgName);
     //Delete the image from s3
-    const params = {
+    const paramsDelete = {
       Bucket: bucketName,
-      Key: post.postImgName, // Key: imageName,
+      Key: post.postImgName,
     };
-    const command = new DeleteObjectCommand(params);
-    // await s3.send(command);
-    //
-    //delete the post from mongoDB
+    const commandDelete = new DeleteObjectCommand(paramsDelete);
+    const imageExist = post.postImgName.length > 0;
+    console.log(imageExist);
     const evenUser = userId === post.userId;
-    if (evenUser) {
-      post.postImgName && await s3.send(command);
+
+    if (evenUser && imageExist) {
+      //delete the post from s3
+      await s3.send(commandDelete);
       await Post.deleteOne({ _id: id });
+      //delete the post from mongoDB
+      res.status(200).json({ message: "Post deleted successfully!" });
+    } else if (evenUser && !imageExist) {
+      await Post.deleteOne({ _id: id });
+      //delete the post from mongoDB
       res.status(200).json({ message: "Post deleted successfully!" });
     } else {
       res.status(403).json({ message: "Not authorized!" });

@@ -70,11 +70,17 @@ del form
 +   guests.length color???
 +   upload on github
 +   upload on Vercel 
--   delete post with image
--   guests evenGuest -> 4 times
++   delete post with image
+.   guests evenGuest -> 4 times
++   if frend? in frend list icon=-friend, post=-friend; profile? post=+friend
+-   createUser don't have twiter and linkedin
+-   Verify redux  not used items
++   edit Social Profiles authorization
+-   loader???????
 
-!!! Friend - 2
 
+!!!!!!!!!!!!!!!!!!! 
+    Friend - 2
     NewComment - 1
     SocialProfiles - 2
     Visitor - 1
@@ -91,9 +97,15 @@ del form
     SearchWidget - 1 
     UserWidget - 2
 
-    https://sm-boogysh-server-git-main-boogysh.vercel.app
 
-    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NWY2YzkzYmRhMzE1YmMwMWNmMjYzMSIsImlhdCI6MTY4Mzk3NzA0NH0.cFGcYfCUOW-gFG5uWT5NlBb1vWHDaRQkyqzXBwyem3Q
+    ---------------------
+
+
+
+
+
+
+    
     
 
 

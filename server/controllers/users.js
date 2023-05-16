@@ -142,22 +142,13 @@ export const getUserFriends = async (req, res) => {
       user.friends.map((id) => User.findById(id))
     );
     const formattedFriends = friends.map(
-      ({
-        _id,
-        firstName,
-        lastName,
-        occupation,
-        location,
-        picturePath,
-        url,
-      }) => {
+      ({ _id, firstName, lastName, occupation, location, url }) => {
         return {
           _id,
           firstName,
           lastName,
           occupation,
           location,
-          picturePath,
           url,
         };
       }

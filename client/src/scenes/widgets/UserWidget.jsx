@@ -7,38 +7,61 @@ import { BsBriefcase } from "react-icons/bs";
 import { useGetPosts } from "../../hooks/useGetPosts/UseGetPosts";
 import Visitors from "../../components/Visitors";
 import SocialProfiles from "../../components/SocialProfiles";
-import { GUESTS } from "../../redux/actions";
+import { GUESTS, PROFILE } from "../../redux/actions";
+import AddOrRemoveFriend from "../../components/AddOrRemoveFriend";
 
 const UserWidget = ({ userId }) => {
   const [user, setUser] = useState(null);
+  const { profile } = useSelector((state) => state.userReducer);
+  console.log("profile", profile);
   const [recievedLikes, setRecievedLikes] = useState(0);
   const [recievedComments, setRecievedComments] = useState(0);
   const [showVisitors, setShowVisitors] = useState(false);
   const [updateUser, setUpdateUser] = useState(0);
   const { token } = useSelector((state) => state.userReducer);
+  const loggedUserId = useSelector((state) => state.userReducer.user._id);
   const { thm } = useSelector((state) => state.themeReducer);
-  const { friends } = useSelector((state) => state.userReducer);
-  const isProfile = window.location.href.includes(userId);
+ 
+  // const authorized = userId === loggedUserId
+
+  const { userFriends } = useSelector((state) => state.userReducer);
+  const isFriend = userFriends?.find((friend) => friend._id === userId);
+  useEffect(() => {}, [isFriend, userFriends?.length]);
+
+  const isProfile = window.location.href.includes(userId); //getPosts
+
+  console.log("userId", userId);
+  console.log("loggedUserId", loggedUserId);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const homePage = window.location.href.includes("/home");
+  const profilePage = window.location.href.includes("/profile");
+
+
+  //
   useEffect(() => {
     const getUser = async () => {
-      // const response = await fetch(`http://localhost:3001/users/${userId}`, {
-      const response = await fetch(`${process.env.REACT_APP_URL}/users/${userId}`, {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_URL}/users/${userId}`,
+        {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       const data = await response.json();
       console.log("data-ser:::", data);
       setUser(data);
       dispatch(GUESTS(data.viewedProfile));
+      dispatch(PROFILE(data));
+
     };
     getUser();
   }, [
     user?.twitterUrl?.length,
     user?.viewedProfile?.length,
+    user?.friends?.length,
     updateUser,
     token,
     userId,
@@ -48,7 +71,7 @@ const UserWidget = ({ userId }) => {
 
   // //--------GET POSTS-----------------------------
   // const postsUrl = "http://localhost:3001/posts";
-  const postsUrl =`${process.env.REACT_APP_URL}/posts`;
+  const postsUrl = `${process.env.REACT_APP_URL}/posts`;
   const { posts } = useGetPosts(postsUrl, token, isProfile);
   //!!! postsUpdate force posts to update, onClick on send-comment-btn
   //----------------------------
@@ -85,12 +108,13 @@ const UserWidget = ({ userId }) => {
     lastName,
     location,
     occupation,
-    // viewedProfile,
+    friends,
     twitterUrl,
     linkedinUrl,
     url,
+    // } = user;
   } = user;
-  // console.log("user", user);
+
   return (
     <div
       className={`w-full h-auto ${thm.bg.alt} rounded-[10px] p-5 overflow-hidden`}
@@ -98,25 +122,37 @@ const UserWidget = ({ userId }) => {
       <div className="w-full flex items-center">
         <img
           className="w-[60px] h-[60px] object-cover rounded-[50%]"
+          // src={profile?.url}
           src={url}
           alt="user"
         />
         <div className="ps-3 py-4">
           <h1 className={`${thm.text.neutral.dark} text-lg font-medium`}>
+            {/* {profile?.firstName} {profile?.lastName} */}
             {firstName} {lastName}
           </h1>
           <h2 className={`${thm.text.neutral.dark} text-sm`}>
+            {/* {profile?.friends?.length} friends */}
             {friends?.length} friends
           </h2>
         </div>
-        <button
-          className={`flex justify-center items-center rounded-full w-10 h-10 ${thm.bg.neutral.light_hover} ml-auto`}
-        >
-          <MdOutlineManageAccounts
-            onClick={() => navigate(`/profile/${userId}`)}
-            className={`w-6 h-6 ${thm.text.neutral.main}`}
+        {(homePage || (profilePage && userId === loggedUserId)) && (
+          <button
+            className={`flex justify-center items-center rounded-full w-10 h-10 ${thm.bg.neutral.light_hover} ml-auto`}
+          >
+            <MdOutlineManageAccounts
+              onClick={() => navigate(`/profile/${userId}`)}
+              className={`w-6 h-6 ${thm.text.neutral.main}`}
+            />
+          </button>
+        )}
+        {profilePage && userId !== loggedUserId && (
+          <AddOrRemoveFriend
+            friendId={userId} //useParams
+            _id={loggedUserId}
+            isFriend={isFriend}
           />
-        </button>
+        )}
       </div>
 
       <hr className={`w-full h-px my-3 ${thm.devidier}`} />
@@ -140,20 +176,6 @@ const UserWidget = ({ userId }) => {
 
       <hr className={`w-full h-px my-3 ${thm.devidier}`} />
       {/* Who's viewed your profile */}
-
-      {/* <div className="relative flex justify-between mt-2 mb-1">
-        <div
-          onClick={() => setShowVisitors(true)}
-          className={`text-sm cursor-pointer ${thm.text.neutral.medium} ${thm.text.primary.main_hover}`}
-        >
-          Who's viewed your profile
-        </div>
-
-        <span className={`${thm.text.neutral.main} text-sm`}>
-          {viewedProfile.length}
-        </span>
-      </div> */}
-
       {showVisitors && (
         <Visitors setShowVisitors={setShowVisitors} userId={userId} />
       )}

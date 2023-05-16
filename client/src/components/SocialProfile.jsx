@@ -5,6 +5,7 @@ import { MdClose, MdOutlineDownloadDone } from "react-icons/md";
 import { useSelector } from "react-redux";
 
 const SocialProfile = ({
+  userId,
   SM_Name,
   SM_Url, //SocialMedia
   SMValue,
@@ -15,6 +16,8 @@ const SocialProfile = ({
   activeSMStatus,
 }) => {
   const { thm } = useSelector((state) => state.themeReducer);
+  const loggedUserId = useSelector((state) => state.userReducer.user._id);
+  const authorized = loggedUserId === userId;
 
   const trunc_25 = (str) => {
     return str?.length > 25 ? str.slice(0, 22) + "..." : str;
@@ -113,14 +116,16 @@ const SocialProfile = ({
           </div>
         ) : (
           // EDIT SM ACCOUNT
-          <button
-            onClick={() => setShowSMInput(!showSMInput)}
-            className={`${thm.bg.neutral.light_hover} p-2 rounded-full ml-auto`}
-          >
-            <FiEdit2
-              className={`${thm.text.neutral.medium} w-[18px] h-[18px]`}
-            />
-          </button>
+          authorized ? (
+            <button
+              onClick={() => setShowSMInput(!showSMInput)}
+              className={`${thm.bg.neutral.light_hover} p-2 rounded-full ml-auto`}
+            >
+              <FiEdit2
+                className={`${thm.text.neutral.medium} w-[18px] h-[18px]`}
+              />
+            </button>
+          ): null
         )}
       </div>
     </div>
