@@ -8,7 +8,7 @@ import { FaSearch } from "react-icons/fa";
 import { IoFootsteps } from "react-icons/io5";
 import { TbLogout } from "react-icons/tb";
 import Visitors from "../../components/Visitors";
-import icon from "../../assets/icon-9.png";
+import icon from "../../assets/icon-10.png";
 
 const NavBar = ({ showSearchWidget, setShowSearchWidget }) => {
   const [show, setShow] = useState(false);
