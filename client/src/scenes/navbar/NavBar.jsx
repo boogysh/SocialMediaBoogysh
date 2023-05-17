@@ -8,7 +8,7 @@ import { FaSearch } from "react-icons/fa";
 import { IoFootsteps } from "react-icons/io5";
 import { TbLogout } from "react-icons/tb";
 import Visitors from "../../components/Visitors";
-import icon from "../../assets/icon-1.png";
+import icon from "../../assets/icon-9.png";
 
 const NavBar = ({ showSearchWidget, setShowSearchWidget }) => {
   const [show, setShow] = useState(false);
@@ -43,7 +43,7 @@ const NavBar = ({ showSearchWidget, setShowSearchWidget }) => {
       className={`flex justify-between items-center w-full h-auto ${thm.bg.alt}  py-2 px-[5%]`}
     >
       <div className="flex">
-        <img src={icon} alt="icon" className="w-16 h-16 mr-2"/>
+        <img src={icon} alt="icon" className="w-16 h-16 mr-2" />
         <div>
           <h1
             onClick={() => navigate("/home")}
