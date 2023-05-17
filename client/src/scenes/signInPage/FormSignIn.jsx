@@ -1,6 +1,5 @@
 import React from "react";
 import { FiEdit2 } from "react-icons/fi";
-// import DefaultImage from "../../assets/user.png"
 
 const FormSignIn = ({
   matchFN,
@@ -9,16 +8,13 @@ const FormSignIn = ({
   matchOccupation,
   matchEmail,
   matchPassword,
-  // matchImage,
   borderRed,
   valImage,
   register,
   image,
   setImage,
 }) => {
-  // const [borderRedImage, setBorderRedImage] = useState("");
   const style = {
-    // input_red: "w-full  p-4 bg-blue-50 rounded-md outline-2 outline-rose-500",
     input_red: "w-full  p-4 bg-blue-50 rounded-md border-2 border-red-500",
 
     input_cyan:
@@ -29,8 +25,6 @@ const FormSignIn = ({
       "flex items-center bg-blue-50 border border-gray-800  rounded-[5px] w-full h-auto p-3 my-3",
   };
 
-  // console.log("image: ", image);
-  // console.log("val.image: ", val.image);
   return (
     <form onSubmit={register}>
       {/* ---FIRST NAME--- */}
@@ -115,7 +109,6 @@ const FormSignIn = ({
       {/* -----ADD-IMAGE-------- */}
 
       <div
-        // className={`flex items-center bg-blue-50 border border-gray-800  rounded-[5px] w-full h-auto p-3 my-3`}
         className={
           borderRed.image ? style.input_image_red : style.input_image_cyan
         }
@@ -133,17 +126,14 @@ const FormSignIn = ({
             id="userImage"
             accept=".png, .jpg, .jpeg"
             onChange={(e) => setImage(e.target.files[0])}
-            // onChange={matchImage}
           />
           <div className="flex items-center">
-            {/* {!valImage ? ( */}
             {!image ? (
               <p className=" relative bottom-[10px] text-gray-400 ">
                 Add your image here
               </p>
             ) : (
               <p className="relative bottom-[10px] text-gray-400">
-                {/* {valImage.name} */}
                 {image.name}
               </p>
             )}
@@ -193,7 +183,6 @@ const FormSignIn = ({
       ></p>
 
       <button
-        // type="submit"
         onClick={register}
         className="w-full p-4 mt-5 mb-7 bg-orange-500 rounded-md text-white outline-2 hover:outline-cyan-400 text-xs font-medium  hover:bg-orange-400"
       >

@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { MdOutlineManageAccounts } from "react-icons/md";
+import { MdDelete, MdOutlineManageAccounts } from "react-icons/md";
 import { GoLocation } from "react-icons/go";
-import { BsBriefcase } from "react-icons/bs";
-// import { useGetPosts } from "../../hooks/useGetPosts/UseGetPosts";
+import { BsBriefcase, BsThreeDots } from "react-icons/bs";
 import Visitors from "../../components/Visitors";
 import SocialProfiles from "../../components/SocialProfiles";
 import { GUESTS, PROFILE } from "../../redux/actions";
 import AddOrRemoveFriend from "../../components/AddOrRemoveFriend";
+import ConfirmDeleteAccount from "../../components/ConfirmDeleteAccount";
 
 const UserWidget = ({ userId }) => {
   const [user, setUser] = useState(null);
+  const [showDotsMenu, setShowDotsMenu] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const { profile } = useSelector((state) => state.userReducer);
   console.log("profile", profile);
   const [recievedLikes, setRecievedLikes] = useState(0);
@@ -22,23 +24,18 @@ const UserWidget = ({ userId }) => {
   const { posts } = useSelector((state) => state.userReducer);
   const loggedUserId = useSelector((state) => state.userReducer.user._id);
   const { thm } = useSelector((state) => state.themeReducer);
- 
-  // const authorized = userId === loggedUserId
-
   const { userFriends } = useSelector((state) => state.userReducer);
   const isFriend = userFriends?.find((friend) => friend._id === userId);
   useEffect(() => {}, [isFriend, userFriends?.length]);
 
-
-  console.log("userId", userId);
-  console.log("loggedUserId", loggedUserId);
+  // console.log("userId", userId);
+  // console.log("loggedUserId", loggedUserId);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const homePage = window.location.href.includes("/home");
   const profilePage = window.location.href.includes("/profile");
-
 
   //
   useEffect(() => {
@@ -55,7 +52,6 @@ const UserWidget = ({ userId }) => {
       setUser(data);
       dispatch(GUESTS(data.viewedProfile));
       dispatch(PROFILE(data));
-
     };
     getUser();
   }, [
@@ -67,27 +63,20 @@ const UserWidget = ({ userId }) => {
     userId,
     dispatch,
   ]);
-  // eslint-disable-line react-hooks/exhaustive-deps
 
-  // //--------GET POSTS-----------------------------
-  // const isProfile = window.location.href.includes(userId); //getPosts
-
-  // const postsUrl = `${process.env.REACT_APP_URL}/posts`;
-  // const { posts } = useGetPosts(postsUrl, token, isProfile);
-  //!!! postsUpdate force posts to update, onClick on send-comment-btn
-  //----------------------------
   //GET DIFFERNTS IMPRESSIONS
   useEffect(() => {
-    const userPosts = posts.filter((post) => post.userId === userId);
+    const userPosts = posts?.filter((post) => post.userId === userId);
     console.log("userPosts", userPosts);
     const likesLengthArray = [];
     const commentsLengthArray = [];
     //-
-    // userPosts.forEach((post) => likesLengthArray.push(post.likes.length));
-    userPosts.forEach((post) =>
+    userPosts?.forEach((post) =>
       likesLengthArray.push(Object.keys(post.likes).length)
     );
-    userPosts.forEach((post) => commentsLengthArray.push(post.comments.length));
+    userPosts?.forEach((post) =>
+      commentsLengthArray.push(post.comments.length)
+    );
     //-
     const likesCount = likesLengthArray.reduce((acc, curr) => acc + curr, 0);
     console.log(" likesCount", likesCount);
@@ -100,7 +89,7 @@ const UserWidget = ({ userId }) => {
     console.log(" commentsCount", commentsCount);
     setRecievedComments(commentsCount);
   }, [posts, userId]);
-  //eslint-disable-line react-hooks/exhaustive-deps
+
   if (!user) {
     return null;
   }
@@ -122,31 +111,61 @@ const UserWidget = ({ userId }) => {
     >
       <div className="w-full flex items-center">
         <img
-          className="w-[60px] h-[60px] object-cover rounded-[50%]"
-          // src={profile?.url}
+          className="w-[50px] h-[50px]  lg:w-[60px] lg:h-[60px] object-cover rounded-[50%]"
           src={url}
           alt="user"
         />
-        <div className="ps-3 py-4">
+        <div className="ps-3 py-4 md:pl-2">
           <h1 className={`${thm.text.neutral.dark} text-lg font-medium`}>
-            {/* {profile?.firstName} {profile?.lastName} */}
             {firstName} {lastName}
           </h1>
           <h2 className={`${thm.text.neutral.dark} text-sm`}>
-            {/* {profile?.friends?.length} friends */}
             {friends?.length} friends
           </h2>
         </div>
-        {(homePage || (profilePage && userId === loggedUserId)) && (
-          <button
-            className={`flex justify-center items-center rounded-full w-10 h-10 ${thm.bg.neutral.light_hover} ml-auto`}
-          >
-            <MdOutlineManageAccounts
-              onClick={() => navigate(`/profile/${userId}`)}
-              className={`w-6 h-6 ${thm.text.neutral.main}`}
+        <div className="flex ml-auto">
+          {homePage && (
+            //  MANAGE PROFILE
+            <button
+              className={`flex justify-center items-center rounded-full w-10 h-10 ${thm.bg.neutral.light_hover}`}
+            >
+              <MdOutlineManageAccounts
+                onClick={() => navigate(`/profile/${userId}`)}
+                className={`w-6 h-6 ${thm.text.neutral.main}`}
+              />
+            </button>
+          )}
+          {/* DOTS MENU  */}
+          {profilePage && userId === loggedUserId && (
+            <div
+              className={`flex  border-[1px] ${thm.border.neutral.medium} h-fit rounded-full`}
+            >
+              {showDotsMenu && (
+                <button
+                  // onClick={deleteUser}
+                  onClick={() => setShowDeleteConfirm(!showDeleteConfirm)}
+                  className={`w-7 h-7 flex ml-px mr-4 justify-center items-center rounded-full ${thm.bg.neutral.light_hover}`}
+                >
+                  <MdDelete className={`w-5 h-5 ${thm.text.neutral.main}`} />
+                </button>
+              )}
+              <button
+                onClick={() => setShowDotsMenu(!showDotsMenu)}
+                className={`w-7 h-7 flex  justify-center items-center rounded-full ${thm.bg.neutral.light_hover}`}
+              >
+                <BsThreeDots className={`w-4 h-4 ${thm.text.neutral.main}`} />
+              </button>
+            </div>
+          )}
+          {/* SHOW DELETE CONFIRMATION ACCOUNT MODAL */}
+          {showDeleteConfirm && (
+            <ConfirmDeleteAccount
+              user={user}
+              setShowDeleteConfirm={setShowDeleteConfirm}
             />
-          </button>
-        )}
+          )}
+        </div>
+
         {profilePage && userId !== loggedUserId && (
           <AddOrRemoveFriend
             friendId={userId} //useParams

@@ -38,7 +38,6 @@ const SocialProfiles = ({
   const handleTwitterAccount = async () => {
     if (validURL(twitterValue)) {
       const response = await fetch(
-        // `http://localhost:3001/users/${userId}/accounts/twitter`,
         `${process.env.REACT_APP_URL}/users/${userId}/accounts/twitter`,
         {
           method: "PATCH",
@@ -59,7 +58,6 @@ const SocialProfiles = ({
   const handleLinkedinAccount = async () => {
     if (validURL(linkedinValue)) {
       const response = await fetch(
-        // `http://localhost:3001/users/${userId}/accounts/linkedin`,
         `${process.env.REACT_APP_URL}/users/${userId}/accounts/linkedin`,
         {
           method: "PATCH",

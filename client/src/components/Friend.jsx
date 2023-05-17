@@ -29,7 +29,6 @@ const Friend = ({
   // VIEWS
   const visitProfile = async () => {
     const response = await fetch(
-      // `http://localhost:3001/users/${_id}/${friendId}/views`,
       `${process.env.REACT_APP_URL}/users/${_id}/${friendId}/views`,
       {
         method: "PATCH",

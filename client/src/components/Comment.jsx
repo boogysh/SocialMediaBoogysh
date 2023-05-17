@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 const Comment = ({ url, name, description, createdAt }) => {
   const { thm } = useSelector((state) => state.themeReducer);
 
-  // const numberOfLineBreaks = (description.match(/\n/g)||[]).length;
 
   return (
     <div className="flex w-full mb-5 last:mb-0" key={`${url}`}>
@@ -30,7 +29,6 @@ const Comment = ({ url, name, description, createdAt }) => {
         </div>
 
         <p
-          // style={{ whiteSpace: "pre-wrap" }}
           style={{ whiteSpace: "break-spaces" }}
           className={`text-sm ${thm.text.neutral.main} mt-3`}
         >

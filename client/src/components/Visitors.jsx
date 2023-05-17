@@ -16,7 +16,6 @@ const Visitors = ({ userId, setShowVisitors }) => {
   useEffect(() => {
     const getUserVisitors = async () => {
       const response = await fetch(
-        // `http://localhost:3001/users/${userId}/visitors`,
         `${process.env.REACT_APP_URL}/users/${userId}/visitors`,
         {
           method: "GET",
@@ -33,7 +32,6 @@ const Visitors = ({ userId, setShowVisitors }) => {
 
   const resetUserVisitors = async () => {
     const response = await fetch(
-      // `http://localhost:3001/users/${userId}/views/reset`,
       `${process.env.REACT_APP_URL}/users/${userId}/views/reset`,
       {
         method: "PATCH",
@@ -81,7 +79,6 @@ const Visitors = ({ userId, setShowVisitors }) => {
               <Visitor
                 key={uuidv4()}
                 name={`${visitor.firstName} ${visitor.lastName}`}
-                // subtitle={visitor.occupation}
                 url={visitor.url}
                 visitedAt={visitor.visitedAt}
                 friendId={visitor._id}

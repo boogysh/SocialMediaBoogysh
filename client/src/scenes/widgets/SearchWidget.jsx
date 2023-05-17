@@ -6,7 +6,6 @@ import { MdClose } from "react-icons/md";
 
 const SearchWidget = ({ userId, showSearchWidget, setShowSearchWidget }) => {
   const { thm } = useSelector((state) => state.themeReducer);
-  //   const [searchValue, setSearchValue] = useState("");
   const [result, setResult] = useState("");
   const { token } = useSelector((state) => state.userReducer);
 
@@ -24,7 +23,6 @@ const SearchWidget = ({ userId, showSearchWidget, setShowSearchWidget }) => {
 
     console.log("searchValue", searchValue);
 
-    // const response = await fetch(`http://localhost:3001/users`, {
     const response = await fetch(`${process.env.REACT_APP_URL}/users`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },

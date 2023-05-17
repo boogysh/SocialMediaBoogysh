@@ -17,7 +17,6 @@ const MyPostWidget = () => {
     isFile: false,
   });
 
-  // const [image, setImage] = useState(null);
   const [payload, setPayload] = useState(null);
   const [post, setPost] = useState("");
   const [postBorder, setPostBorder] = useState("");
@@ -58,8 +57,8 @@ const MyPostWidget = () => {
       payload && formData.append("payload", payload);
       payload && formData.append("payloadType", contentType);
 
+      // fetch don't work ->  problem: boundary
       const response = await axios.post(
-        // `http://localhost:3001/posts`,
         `${process.env.REACT_APP_URL}/posts`,
         formData,
         {
@@ -69,15 +68,6 @@ const MyPostWidget = () => {
           },
         }
       );
-      // fetch don't work ->  problem: boundary
-      // const response = await fetch(`http://localhost:3001/posts`, {
-      //   method: "POST",
-      //   headers: { Authorization: `Bearer ${token}` },
-      //   body: formData,
-      // });
-
-      // const posts = await response.json();
-      // dispatch(POSTS(posts));
       dispatch(POSTS(response));
       resetValues();
       setPostBorder("");

@@ -15,15 +15,6 @@ const NewComment = ({ userUrl, postId, postsUpdate, setPostsUpdate }) => {
   );
   const dispatch = useDispatch();
 
-  // NOT NECESSARY
-  // const nextRow = (e) => {
-  //   if (e.keyCode === 13) {
-  //     e.preventDefault();
-  //     setComment({ ...(comment + "\n") });
-  //     // setComment({ ...(comment + "<br>") });
-  //   }
-  // };
-
   const matchComment = (e) => {
     const val = e.target.value;
     const whitespace = val.slice(-1) === "\n";
@@ -46,7 +37,6 @@ const NewComment = ({ userUrl, postId, postsUpdate, setPostsUpdate }) => {
 
   const patchComment = async () => {
     const response = await fetch(
-      // `http://localhost:3001/posts/${postId}/comment`,
       `${process.env.REACT_APP_URL}/posts/${postId}/comment`,
       {
         method: "PATCH",
@@ -71,7 +61,6 @@ const NewComment = ({ userUrl, postId, postsUpdate, setPostsUpdate }) => {
 
   return (
     <div className=" flex flex-col pb-5 px-5">
-      {/* <hr className={`w-full h-px mb-4 bt-3 ${thm.devidier}`} /> */}
       <div className="flex">
         <img
           src={userUrl}
@@ -83,7 +72,6 @@ const NewComment = ({ userUrl, postId, postsUpdate, setPostsUpdate }) => {
         >
           <textarea
             onChange={matchComment}
-            // onKeyUp={nextRow}
             type="text"
             id="newComment"
             placeholder="Leave a comment..."

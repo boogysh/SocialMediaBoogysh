@@ -20,6 +20,7 @@ const UserSchema = new mongoose.Schema(
       },
     ],
     url: { type: String, required: false },
+    urlImgName: { type: String, required: false },
     twitterUrl: { type: String, default: "" },
     linkedinUrl: { type: String, default: "" },
   },

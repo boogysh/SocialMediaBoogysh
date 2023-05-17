@@ -5,13 +5,10 @@ import { v4 as uuidv4 } from "uuid";
 
 const ProfileFriendsList = () => {
   const [profileFriends, setProfileFriends] = useState([]);
-  console.log("profileFriends++++++++++++++++++++", profileFriends);
-  // const { firstName, lastName, occupation, url } = profileFriends;
   const { thm } = useSelector((state) => state.themeReducer);
   const { profile } = useSelector((state) => state.userReducer);
   const { token } = useSelector((state) => state.userReducer);
 
-  console.log("profile-Friends:", profile.friends);
 
   useEffect(() => {
     const getFriends = async () => {
@@ -29,7 +26,6 @@ const ProfileFriendsList = () => {
 
     getFriends();
   }, [token, profile._id, profile?.friends?.length]);
-  // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className={`w-auto h-auto ${thm.bg.alt} rounded-[10px] p-5 mb-5`}>
@@ -39,7 +35,6 @@ const ProfileFriendsList = () => {
       {profileFriends &&
         profileFriends?.map((friend) => (
           <Friend
-            //userFriends={userFriends}
             key={uuidv4()}
             friendId={friend._id}
             name={`${friend.firstName} ${friend.lastName}`}

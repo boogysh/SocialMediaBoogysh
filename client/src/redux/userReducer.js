@@ -10,13 +10,6 @@ const initialState = {
 
 function userReducer(state = initialState, action) {
   switch (action.type) {
-    //   case "THEME":
-    //     return {
-    //       ...state,
-    //       // mode: action.payload,
-    //       mode: state.mode === "light" ? "dark" : "light",
-    //     };
-
     case "LOGIN":
       return {
         ...state,
@@ -34,14 +27,12 @@ function userReducer(state = initialState, action) {
     case "USER_FRIENDS":
       return {
         ...state,
-        // user: action.payload.user.friends
         userFriends: action.payload,
       };
 
-      case "PROFILE_FRIENDS":
+    case "PROFILE_FRIENDS":
       return {
         ...state,
-        // user: action.payload.user.friends
         profileFriends: action.payload,
       };
 
@@ -58,7 +49,6 @@ function userReducer(state = initialState, action) {
       });
       return {
         ...state,
-        // post: action.payload.post,
         posts: updatedPosts,
       };
 
@@ -68,11 +58,11 @@ function userReducer(state = initialState, action) {
         guests: action.payload,
       };
 
-    case "RECIEVIED_COMMENTS":
-      return {
-        ...state,
-        recievedComments: action.payload,
-      };
+    // case "RECIEVIED_COMMENTS":
+    //   return {
+    //     ...state,
+    //     recievedComments: action.payload,
+    //   };
 
     case "PROFILE":
       return {

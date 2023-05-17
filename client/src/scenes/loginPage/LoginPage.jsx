@@ -25,12 +25,14 @@ const LoginPage = () => {
   const login = async (e) => {
     e.preventDefault();
     if (val.email && val.password) {
-      // const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
-      const loggedInResponse = await fetch(`${process.env.REACT_APP_URL}/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userValues),
-      });
+      const loggedInResponse = await fetch(
+        `${process.env.REACT_APP_URL}/auth/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(userValues),
+        }
+      );
 
       const loggedIn = await loggedInResponse.json();
       if (loggedIn) {
@@ -50,32 +52,32 @@ const LoginPage = () => {
   };
 
   return (
-      <div className="p-5">
-        <div className="w-fit  mx-auto mt-5">
-          <h1 className={`text-[2rem] font-semibold  text-orange-500  p-0`}>
-            boogysh
-          </h1>
-          <span className={`relative bottom-[0.6rem] text-sm `}>
-            Social Media
-          </span>
-        </div>
-        <div className="max-w-[500px] mx-auto bg-white rounded-[1.5rem] p-7  mb-5">
-          <h2 className="text-[1rem] font-medium mb-3">
-            Welcome to Socipedia, the Social Media for Sociopaths!
-          </h2>
-          <FormLogIn
-            login={login}
-            borderRed={borderRed}
-            matchEmail={matchEmail}
-            matchPassword={matchPassword}
-          />
-          <Link
-            to="signin"
-            className="underline text-orange-500 hover:text-orange-400 "
-          >
-            Don't have an account? Sign Up here.
-          </Link>
-        </div>
+    <div className="p-5">
+      <div className="w-fit  mx-auto mt-5">
+        <h1 className={`text-[2rem] font-semibold  text-orange-500  p-0`}>
+          boogysh
+        </h1>
+        <span className={`relative bottom-[0.6rem] text-sm `}>
+          Social Media
+        </span>
+      </div>
+      <div className="max-w-[500px] mx-auto bg-white rounded-[1.5rem] p-7  mb-5">
+        <h2 className="text-[1.3rem] font-medium mb-3">
+          Welcome to boogysh social media!
+        </h2>
+        <FormLogIn
+          login={login}
+          borderRed={borderRed}
+          matchEmail={matchEmail}
+          matchPassword={matchPassword}
+        />
+        <Link
+          to="signin"
+          className="underline text-orange-500 hover:text-orange-400 "
+        >
+          Don't have an account? Sign Up here.
+        </Link>
+      </div>
     </div>
   );
 };

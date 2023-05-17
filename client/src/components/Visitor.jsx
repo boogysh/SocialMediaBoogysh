@@ -6,13 +6,9 @@ const Visitor = ({ userId, friendId, name, visitedAt, url }) => {
   const { token } = useSelector((state) => state.userReducer);
   const { thm } = useSelector((state) => state.themeReducer);
 
-  // console.log("user-:::::", user);
-  //console.log("friends-:::::", friends);
-
-  // VIEWS
+// VIEWS
   const visitProfile = async () => {
     const response = await fetch(
-      // `http://localhost:3001/users/${userId}/${friendId}/views`,
       `${process.env.REACT_APP_URL}/users/${userId}/${friendId}/views`,
 
       // imprtant to keep friendId even friendId === vistorid,

@@ -8,6 +8,7 @@ import {
   S3Client,
   PutObjectCommand,
   GetObjectCommand,
+  DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
@@ -85,6 +86,7 @@ export const register = async (req, res) => {
       email,
       password: passwordHash,
       url: splittedUrl,
+      urlImgName: imageName,
       friends,
       location,
       occupation,
@@ -112,5 +114,33 @@ export const login = async (req, res) => {
     res.status(200).json({ token, user });
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+
+/* DELETE  ACCOUNT */
+
+export const deleteAccount = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { userId } = req.body;
+
+    const user = await User.findById(id);
+
+    const paramsDelete = {
+      Bucket: bucketName,
+      Key: user.urlImgName,
+    };
+    const commandDelete = new DeleteObjectCommand(paramsDelete);
+
+    const evenUser = userId === id;
+    if (evenUser) {
+      await s3.send(commandDelete);
+      await User.deleteOne({ _id: id });
+      res.status(200).json({ message: "User Account deleted successfully!" });
+    } else {
+      res.status(403).json({ message: "Not authorized!" });
+    }
+  } catch (err) {
+    res.status(404).json({ message: err.message });
   }
 };

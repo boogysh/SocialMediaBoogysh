@@ -3,14 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import useForm from "../../hooks/useForm/useForm";
 import FormSignIn from "./FormSignIn";
 import axios from "axios";
-// import defaultImage from "../../assets/user.png"
 
 const SignIn = () => {
   const [image, setImage] = useState(null);
-  // console.log(image);
-
   const navigate = useNavigate();
-
+  // import useForm to match the values
   const {
     borderRedFunc,
     resetValues,
@@ -22,9 +19,7 @@ const SignIn = () => {
     matchLocation,
     matchOccupation,
     matchPassword,
-    // matchImage,
   } = useForm();
-  // console.log("val.image : " , val.image);
   const newUser = {
     firstName: `${val.firstName}`,
     lastName: `${val.lastName}`,
@@ -33,14 +28,11 @@ const SignIn = () => {
     email: `${val.email}`,
     password: `${val.password}`,
     friends: [],
-    // picture: val.image,
     picture: image,
   };
-  // console.log("newUser", newUser);
 
   const register = async (e) => {
     e.preventDefault();
-    // val.image && setImage(val.image)
     if (
       val.firstName &&
       val.lastName &&
@@ -48,11 +40,9 @@ const SignIn = () => {
       val.occupation &&
       val.email &&
       val.password &&
-      // val.image
       image
     ) {
       const savedUserResponse = await axios.post(
-        // `http://localhost:3001/auth/register`,
         `${process.env.REACT_APP_URL}/auth/register`,
         newUser,
         {
@@ -61,20 +51,7 @@ const SignIn = () => {
           },
         }
       );
-
-      console.log("savedUserResponse", savedUserResponse);
-
-      // const savedUserResponse = await fetch(
-      //   "http://localhost:3001/auth/register",
-      //   {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" },
-      //     body: JSON.stringify(newUser),
-      //   }
-      // );
-
-      // const savedUser = await savedUserResponse.json();
-      // if (savedUser) {
+      // console.log("savedUserResponse", savedUserResponse);
 
       if (savedUserResponse) {
         resetValues();
@@ -96,8 +73,8 @@ const SignIn = () => {
         </span>
       </div>
       <div className="max-w-[500px] mx-auto bg-white rounded-[1.5rem] p-7 mt-4 mb-5">
-        <h2 className="text-[1rem] text-orange-600 font-medium mb-3">
-          Welcome to Socipedia, the Social Media for Sociopaths!
+        <h2 className="text-[1.3rem] text-orange-600 font-medium mb-3">
+          Welcome to boogysh social media!
         </h2>
 
         <FormSignIn
@@ -109,12 +86,14 @@ const SignIn = () => {
           matchPassword={matchPassword}
           borderRed={borderRed}
           register={register}
-          // valImage={val.image}
           image={image}
           setImage={setImage}
         />
 
-        <Link to="/" className="underline text-orange-500 hover:text-orange-400 ">
+        <Link
+          to="/"
+          className="underline text-orange-500 hover:text-orange-400 "
+        >
           Already have an account? Login here.
         </Link>
       </div>

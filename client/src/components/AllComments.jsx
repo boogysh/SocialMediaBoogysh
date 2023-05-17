@@ -53,7 +53,6 @@ const AllComments = ({
         </div>
         {/* FOOTER */}
         <div className={`${thm.bg.alt} sticky bottom-0 z-10 rounded-b-[20px] mt-5`}>
-          {/* <hr className={`w-full h-px mb-4 bt-3 ${thm.devidier}`} /> */}
 
           <NewComment
             userUrl={userUrl}

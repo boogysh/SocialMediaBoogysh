@@ -9,7 +9,6 @@ import { IoFootsteps } from "react-icons/io5";
 import { TbLogout } from "react-icons/tb";
 import Visitors from "../../components/Visitors";
 
-// const NavBar = ({ userId, showSearchWidget, setShowSearchWidget }) => {
 const NavBar = ({ showSearchWidget, setShowSearchWidget }) => {
   const [show, setShow] = useState(false);
 
@@ -94,7 +93,6 @@ const NavBar = ({ showSearchWidget, setShowSearchWidget }) => {
             </span>
 
             {showVisitors && (
-              // <Visitors setShowVisitors={setShowVisitors} userId={userId} />
               <Visitors setShowVisitors={setShowVisitors} userId={userId} />
             )}
           </div>
