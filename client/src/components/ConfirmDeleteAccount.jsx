@@ -41,7 +41,7 @@ const deleteUserAccount = async () => {
       className={`bg-gray-700/50 fixed z-10  bottom-0 left-0 top-0 right-0 w-[100%] h-[100%]  bg-cover flex justify-center items-center `}
     >
       <div
-        className={`${thm.bg.default} w-[95%] xxs:w-[80%] xs:w-[60%] md:w-[38%] lg:w-[28%] xl:w-[23%]  h-auto max-h-[600px]  rounded-[20px]`}
+        className={`${thm.bg.default} w-[95%] xxs:w-[80%] xs:w-[75%] md:w-[48%] lg:w-[36%]  2xl:w-[30%]  h-auto max-h-[600px]  rounded-[20px]`}
       >
         {/* HEADER */}
         <div
@@ -62,13 +62,13 @@ const deleteUserAccount = async () => {
         {/* CONTENT */}
         
         <div
-          className={`p-5 w-full h-auto max-h-[400px] overflow-y-scroll border-y-[1px] ${thm.bg.neutral.light_border}  ${thm.text.neutral.main} `}
+          className={`p-5 text-sm md:text-base w-full h-auto max-h-[400px] overflow-y-scroll border-y-[1px] ${thm.bg.neutral.light_border}  ${thm.text.neutral.main} `}
         >
             This action is definitely and irreversible. All your data will be deleted. Please confirm.
         </div>
         <button
           onClick={deleteUserAccount}
-          className={`flex  p-2 ${thm.bg.alt} border border-gray-500 ${thm.text.neutral.main} rounded-full ml-auto m-2  mx-auto`}
+          className={`flex text-sm md:text-base  py-2 px-4 ${thm.bg.alt} border border-gray-500 ${thm.text.neutral.main} rounded-full  m-2 mb-5  mx-auto`}
         >
           I confirm. I want to delete my account.
         </button>
