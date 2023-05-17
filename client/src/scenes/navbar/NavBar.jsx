@@ -8,6 +8,7 @@ import { FaSearch } from "react-icons/fa";
 import { IoFootsteps } from "react-icons/io5";
 import { TbLogout } from "react-icons/tb";
 import Visitors from "../../components/Visitors";
+import icon from "../../assets/icon-1.png";
 
 const NavBar = ({ showSearchWidget, setShowSearchWidget }) => {
   const [show, setShow] = useState(false);
@@ -41,18 +42,21 @@ const NavBar = ({ showSearchWidget, setShowSearchWidget }) => {
     <div
       className={`flex justify-between items-center w-full h-auto ${thm.bg.alt}  py-2 px-[5%]`}
     >
-      <div>
-        <h1
-          onClick={() => navigate("/home")}
-          className={`text-[2rem] font-semibold ${thm.text.primary.main} ${thm.text.primary.light_hover} cursor-pointer p-0`}
-        >
-          boogysh
-        </h1>
-        <span
-          className={`relative bottom-[0.6rem] text-sm ${thm.text.neutral.main}`}
-        >
-          Social Media
-        </span>
+      <div className="flex">
+        <img src={icon} alt="icon" className="w-16 h-16 mr-2"/>
+        <div>
+          <h1
+            onClick={() => navigate("/home")}
+            className={`text-[2rem] font-semibold ${thm.text.primary.main} ${thm.text.primary.light_hover} cursor-pointer p-0`}
+          >
+            boogysh
+          </h1>
+          <span
+            className={`relative bottom-[0.6rem] text-sm ${thm.text.neutral.main}`}
+          >
+            Social Media
+          </span>
+        </div>
       </div>
       <AiOutlineMenu
         onClick={() => setShow(!show)}
@@ -84,7 +88,9 @@ const NavBar = ({ showSearchWidget, setShowSearchWidget }) => {
               onClick={() => setShowVisitors(true)}
               className={`flex justify-center items-center rounded-full w-10 h-10 ${thm.bg.neutral.light_hover} m-[2px]`}
             >
-              <IoFootsteps className={`w-[22px] h-[22px] ${thm.text.primary.main}`} />
+              <IoFootsteps
+                className={`w-[22px] h-[22px] ${thm.text.primary.main}`}
+              />
             </button>
             <span
               className={` w-auto px-[6px] py-1 h-5 text-xs flex justify-center items-center rounded-full  ${thm.text.neutral.main} border ${thm.border.primary.main} relative right-3 bottom-3`}
