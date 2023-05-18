@@ -109,6 +109,11 @@ del form
     7- john knox
 
     --------------------
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    .ENV  REACT_APP_URL='https://sm-boogysh-server-git-main-boogysh.vercel.app'  WORKS ONLY: IF is uploaded on github.
+    client side on vercel don't WORKS
+    server side on vercel don't WORKS
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
 
 

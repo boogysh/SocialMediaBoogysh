@@ -1,34 +1,20 @@
 import Post from "../models/Post.js";
 import User from "../models/User.js";
+import { s3ClientFunc } from "../aws_s3/s3.js";
 
 import {
-  S3Client,
+  // S3Client, // imported as s3ClientFunc
   PutObjectCommand,
   GetObjectCommand,
   DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
-// const bucketName = process.env.BUCKET_NAME;
-// // const bucketRegion = process.env.BUCKET_REGION;
-// const accessKey = process.env.ACCESS_KEY;
-// const secretAccessKey = process.env.SECRET_ACCESS_KEY;
-//
-const bucketName = "social-media-boogysh";
-const bucketRegion = "eu-west-3";
-const accessKey = "AKIARRO4ZLJBCQJBAZUI";
-const secretAccessKey = "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";
-
-const s3 = new S3Client({
-  credentials: {
-    accessKeyId: accessKey,
-    secretAccessKey: secretAccessKey,
-  },
-  region: bucketRegion,
-});
-
 /* CREATE */
+
 export const createPost = async (req, res) => {
+  const { s3, bucketName } = s3ClientFunc();
+
   try {
     if (req.file) {
       req.file && req.file.buffer; //important
@@ -51,7 +37,7 @@ export const createPost = async (req, res) => {
       };
       const getCommand = new GetObjectCommand(getObjectParams);
       console.log(getCommand);
-      const url = await getSignedUrl(s3, getCommand, { expireIn: 3600 });
+      const url = await getSignedUrl(s3, getCommand, { expireIn: 60 }); //60s
       console.log("url", url);
 
       //IMAGE-URL OF THE POST
@@ -108,6 +94,7 @@ export const createPost = async (req, res) => {
 };
 //---------- DELETE POST--------------------
 export const deletePost = async (req, res) => {
+  const { s3, bucketName } = s3ClientFunc(); 
   try {
     const { id } = req.params;
     console.log("id", id);

@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
+// import * as dotenv from "dotenv";
 import multer from "multer";
 // import helmet from "helmet";
 // import morgan from "morgan";
@@ -16,6 +17,7 @@ import { verifyToken } from "./middleware/auth.js";
 
 /* CONFIG */
 dotenv.config();
+
 const app = express();
 app.use(express.json());
 // app.use(helmet());

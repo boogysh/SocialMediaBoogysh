@@ -1,38 +1,22 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import { s3ClientFunc } from "../aws_s3/s3.js";
 
 // AWS S3
-
 import {
-  S3Client,
+  // S3Client, //imported as s3ClientFunc
   PutObjectCommand,
   GetObjectCommand,
   DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
-//const bucketName = process.env.BUCKET_NAME;
-//const bucketRegion = process.env.BUCKET_REGION;
-//const accessKey = process.env.ACCESS_KEY;
-//const secretAccessKey = process.env.SECRET_ACCESS_KEY;
-const bucketName = "social-media-boogysh";
-const bucketRegion = "eu-west-3";
-const accessKey = "AKIARRO4ZLJBCQJBAZUI";
-const secretAccessKey = "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";
-
-const s3 = new S3Client({
-  credentials: {
-    accessKeyId: accessKey,
-    secretAccessKey: secretAccessKey,
-  },
-  region: bucketRegion,
-});
-
 /* REGISTER USER */
 
 export const register = async (req, res) => {
   //s3 section
+  const { s3, bucketName } = s3ClientFunc();
   // if (req.file) {
   const imageName = "profiles/" + Date.now() + "-" + req.file.originalname;
   console.log("req.body:", req.body);
@@ -58,7 +42,7 @@ export const register = async (req, res) => {
 
   const getCommand = new GetObjectCommand(getObjectParams);
   console.log(getCommand);
-  const url = await getSignedUrl(s3, getCommand, { expireIn: 3600 });
+  const url = await getSignedUrl(s3, getCommand, { expireIn: 60 }); //60
   console.log(url);
   //---------
   const splittedUrl = url.split("?")[0];
@@ -120,6 +104,8 @@ export const login = async (req, res) => {
 /* DELETE  ACCOUNT */
 
 export const deleteAccount = async (req, res) => {
+  const { s3, bucketName } = s3ClientFunc();
+
   try {
     const { id } = req.params;
     const { userId } = req.body;

@@ -102,7 +102,6 @@ const UserWidget = ({ userId }) => {
     twitterUrl,
     linkedinUrl,
     url,
-    // } = user;
   } = user;
 
   return (
