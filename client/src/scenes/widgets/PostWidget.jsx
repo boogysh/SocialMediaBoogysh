@@ -43,6 +43,8 @@ const PostWidget = ({
   //------------
   const isLiked = Boolean(likes[loggedInUserId]);
   const likeCount = Object.keys(likes).length;
+  // const like_x = Object.keys(likes)
+  // console.log("like_x", like_x)
 
   // PATCH LIKE
   const patchLike = async () => {
@@ -218,5 +220,3 @@ const PostWidget = ({
 };
 
 export default PostWidget;
-
-

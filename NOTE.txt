@@ -115,6 +115,8 @@ del form
     server side on vercel don't WORKS
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
+    After the last update check the client .env  url must be on vercel
+    
 
 
 
