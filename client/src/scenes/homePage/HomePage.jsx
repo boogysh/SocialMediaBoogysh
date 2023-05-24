@@ -7,6 +7,7 @@ import MyPostWidget from "../widgets/MyPostWidget";
 import PostsWidget from "../widgets/PostsWidget";
 import SearchWidget from "../widgets/SearchWidget";
 import { useState } from "react";
+// import Loader from "../../components/Loader/Loader";
 
 const HomePage = () => {
   const [showSearchWidget, setShowSearchWidget] = useState(false);
@@ -40,6 +41,7 @@ const HomePage = () => {
                 />
               )}
             </div>
+            {/* <Loader/> */}
             <UserWidget userId={_id} />
             <div className="hidden md:block 2xl:hidden mt-5">
               <FriendListWidget />

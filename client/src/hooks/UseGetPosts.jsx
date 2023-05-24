@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { POSTS } from "../../redux/actions";
+import { POSTS } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 

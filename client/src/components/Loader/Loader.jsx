@@ -1,13 +1,14 @@
 import React from "react";
-import "./loader.css";
 import { useSelector } from "react-redux";
 
 const Loader = () => {
   const { thm } = useSelector((state) => state.themeReducer);
 
   return (
-    <div className={`w-auto h-auto ${thm.bg.alt} rounded-[10px] p-5 mb-5`}>
-      <div className="loader"></div>
+    <div
+      className={`flex justify-center w-auto h-auto ${thm.bg.alt} rounded-[10px] py-20 mb-5`}
+    >
+      <div className={`w-8 h-8 rounded-full animate-spin border-[4px] border-solid ${thm.border.primary.main} border-b-transparent`}></div>
     </div>
   );
 };

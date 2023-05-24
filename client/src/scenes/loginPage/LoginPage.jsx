@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { LOGIN } from "../../redux/actions";
 import FormLogIn from "./FormLogIn";
-import logo from "../../assets/icon-10.png"
+import logo from "../../assets/icon-10.png";
 
 const LoginPage = () => {
   const { thm } = useSelector((state) => state.themeReducer);
@@ -57,9 +57,11 @@ const LoginPage = () => {
   return (
     <div className="p-5">
       <div className="w-fit flex items-center  mx-auto mt-5">
-        <img src={logo} alt="logo"  className="w-16 h-16 mr-2"/>
+        <img src={logo} alt="logo" className="w-16 h-16 mr-2" />
         <div>
-          <h1 className={`text-[2rem] font-semibold  ${thm.text.primary.main}  p-0`}>
+          <h1
+            className={`text-[2rem] font-semibold  ${thm.text.primary.main}  p-0`}
+          >
             boogysh
           </h1>
           <span className={`relative bottom-[0.6rem] text-sm `}>

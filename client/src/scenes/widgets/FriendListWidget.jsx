@@ -1,50 +1,36 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import Friend from "../../components/Friend";
-import { USER_FRIENDS } from "../../redux/actions";
 import { v4 as uuidv4 } from "uuid";
+import { useGetFriends } from "../../hooks/useGetFriends";
+import Error500 from "../Errors/Error500";
+import Loader from "../../components/Loader/Loader";
 
 const FriendListWidget = () => {
-  const { userFriends } = useSelector((state) => state.userReducer);
-  const { profileFriends } = useSelector((state) => state.userReducer);
-  console.log("userFriends", userFriends);
-  console.log(" profileFriends", profileFriends);
+  // const { profileFriends } = useSelector((state) => state.userReducer);
+  // console.log(" profileFriends", profileFriends);
   //-
-  const dispatch = useDispatch();
   const { thm } = useSelector((state) => state.themeReducer);
-  const { token } = useSelector((state) => state.userReducer);
-  const loggedUserId = useSelector((state) => state.userReducer.user._id);
-  const { user } = useSelector((state) => state.userReducer);
+  const { user, token } = useSelector((state) => state.userReducer);
 
-  useEffect(() => {
-    const getFriends = async () => {
-      const response = await fetch(
-        // `${process.env.REACT_APP_URL}/users/${userId}/friends`,
-        `${process.env.REACT_APP_URL}/users/${loggedUserId}/friends`,
-        {
-          method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      const data = await response.json();
-      console.log(data);
-      dispatch(USER_FRIENDS(data));
-    };
-    getFriends();
-  }, [dispatch, token, loggedUserId, userFriends?.length]);
-  // eslint-disable-line react-hooks/exhaustive-deps
+  ////--------GET FRIENDS----custom hook--------------------------
 
-  return (
+  const friendsUrl = `${process.env.REACT_APP_URL}/users/${user._id}/friends`;
+  const { friendsList, isLoading, error } = useGetFriends(friendsUrl, token);
+
+  if (error) return <Error500 />;
+
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className={`w-auto h-auto ${thm.bg.alt} rounded-[10px] p-5 mb-5`}>
       <h3 className={`font-medium text-base ${thm.text.neutral.dark} mb-3`}>
         {` ${user.firstName}'s friends:`}
       </h3>
       {
-        // homePage &&
-        userFriends &&
-          userFriends?.map((friend) => (
+        friendsList &&
+          friendsList?.map((friend) => (
             <Friend
-              userFriends={userFriends}
               key={uuidv4()}
               friendId={friend._id}
               name={`${friend.firstName} ${friend.lastName}`}

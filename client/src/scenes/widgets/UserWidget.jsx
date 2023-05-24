@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { MdDelete, MdOutlineManageAccounts } from "react-icons/md";
 import { GoLocation } from "react-icons/go";
 import { BsBriefcase, BsThreeDots } from "react-icons/bs";
 import Visitors from "../../components/Visitors";
 import SocialProfiles from "../../components/SocialProfiles";
-import { GUESTS, PROFILE } from "../../redux/actions";
 import AddOrRemoveFriend from "../../components/AddOrRemoveFriend";
 import ConfirmDeleteAccount from "../../components/ConfirmDeleteAccount";
+import { useGetUser } from "../../hooks/useGetUser";
+import Error500 from "../Errors/Error500";
+import Loader from "../../components/Loader/Loader";
 
 const UserWidget = ({ userId }) => {
-  const [user, setUser] = useState(null);
   const [showDotsMenu, setShowDotsMenu] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const { profile } = useSelector((state) => state.userReducer);
@@ -28,43 +29,16 @@ const UserWidget = ({ userId }) => {
   const isFriend = userFriends?.find((friend) => friend._id === userId);
   useEffect(() => {}, [isFriend, userFriends?.length]);
 
-  // console.log("userId", userId);
-  // console.log("loggedUserId", loggedUserId);
-
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const homePage = window.location.href.includes("/home");
   const profilePage = window.location.href.includes("/profile");
 
+  const userUrl = `${process.env.REACT_APP_URL}/users/${userId}`;
+  const { user, isLoading, error } = useGetUser(userUrl, token, updateUser);
   //
-  useEffect(() => {
-    const getUser = async () => {
-      const response = await fetch(
-        `${process.env.REACT_APP_URL}/users/${userId}`,
-        {
-          method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      const data = await response.json();
-      console.log("data-ser:::", data);
-      setUser(data);
-      dispatch(GUESTS(data.viewedProfile));
-      dispatch(PROFILE(data));
-    };
-    getUser();
-  }, [
-    user?.twitterUrl?.length,
-    user?.viewedProfile?.length,
-    user?.friends?.length,
-    updateUser,
-    token,
-    userId,
-    dispatch,
-  ]);
-
   //GET DIFFERNTS IMPRESSIONS
+  //
   useEffect(() => {
     const userPosts = posts?.filter((post) => post.userId === userId);
     console.log("userPosts", userPosts);
@@ -90,36 +64,26 @@ const UserWidget = ({ userId }) => {
     setRecievedComments(commentsCount);
   }, [posts, userId]);
 
-  if (!user) {
-    return null;
-  }
-  const {
-    firstName,
-    lastName,
-    location,
-    occupation,
-    friends,
-    twitterUrl,
-    linkedinUrl,
-    url,
-  } = user;
+  if (error) return <Error500 />;
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div
       className={`w-full h-auto ${thm.bg.alt} rounded-[10px] p-5 overflow-hidden`}
     >
       <div className="w-full flex items-center">
         <img
           className="w-[50px] h-[50px]  lg:w-[60px] lg:h-[60px] object-cover rounded-[50%]"
-          src={url}
+          src={user?.url}
           alt="user"
         />
         <div className="ps-3 py-4 md:pl-2">
           <h1 className={`${thm.text.neutral.dark} text-lg font-medium`}>
-            {firstName} {lastName}
+            {user?.firstName} {user?.lastName}
           </h1>
           <h2 className={`${thm.text.neutral.dark} text-sm`}>
-            {friends?.length} friends
+            {user?.friends?.length} friends
           </h2>
         </div>
         <div className="flex ml-auto">
@@ -181,7 +145,7 @@ const UserWidget = ({ userId }) => {
         <span
           className={`ms-4 text-[0.9rem] ${thm.text.neutral.medium} font-medium`}
         >
-          {location}
+          {user?.location}
         </span>
       </div>
       <div className="flex items-center pb-3 ">
@@ -189,7 +153,7 @@ const UserWidget = ({ userId }) => {
         <span
           className={`ms-4 text-[0.9rem] ${thm.text.neutral.medium} font-medium`}
         >
-          {occupation}
+          {user?.occupation}
         </span>
       </div>
 
@@ -222,8 +186,8 @@ const UserWidget = ({ userId }) => {
       {/* SOCIAL PROFILES */}
       <SocialProfiles
         userId={userId}
-        twitterUrl={twitterUrl}
-        linkedinUrl={linkedinUrl}
+        twitterUrl={user?.twitterUrl}
+        linkedinUrl={user?.linkedinUrl}
         updateUser={updateUser}
         setUpdateUser={setUpdateUser}
       />

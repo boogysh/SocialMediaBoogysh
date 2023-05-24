@@ -1,20 +1,19 @@
 import { useState } from "react";
 import PostWidget from "./PostWidget";
-import { useGetPosts } from "../../hooks/useGetPosts/UseGetPosts";
+import { useGetPosts } from "../../hooks/UseGetPosts";
 import { useSelector } from "react-redux";
 import Error500 from "../Errors/Error500";
-// import Loader from "../../components/Loader/Loader";
+import Loader from "../../components/Loader/Loader";
 
 const PostsWidget = ({ userId }) => {
   const [postsUpdate, setPostsUpdate] = useState(0);
   const { token } = useSelector((state) => state.userReducer);
   const isProfile = window.location.href.includes(userId);
 
-  // //--------GET POSTS-----------------------------
+  ////--------GET POSTS----custom hook--------------------------
 
   const postsUrl = `${process.env.REACT_APP_URL}/posts`;
-  // const { posts, isLoading, error } = useGetPosts(
-  const { posts,  error } = useGetPosts(
+  const { posts, isLoading, error } = useGetPosts(
     postsUrl,
     token,
     isProfile,
@@ -23,10 +22,9 @@ const PostsWidget = ({ userId }) => {
   //!!! postsUpdate force posts to update, onClick on send-comment-btn
 
   if (error) return <Error500 />;
-  // return isLoading ? (
-    // <Loader />
-  //) :
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <section>
       {posts?.length > 0 &&
         posts.map(
@@ -71,5 +69,3 @@ const PostsWidget = ({ userId }) => {
 };
 
 export default PostsWidget;
-
-

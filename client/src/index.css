@@ -13,6 +13,18 @@ body,
 @tailwind components;
 @tailwind utilities;
 
+
+/* animate-spin  ===  @keyframes loader */
+/* @keyframes loader {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
+
+
 hr {
   border: none;
 }

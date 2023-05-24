@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
+import LoaderBtn from "../../components/Loader/LoaderBtn";
 
 const FormSignIn = ({
   matchFN,
@@ -14,6 +15,8 @@ const FormSignIn = ({
   image,
   setImage,
 }) => {
+  const [isLoading, setLoading] = useState(false);
+
   const style = {
     input_red: "w-full  p-4 bg-blue-50 rounded-md border-2 border-red-500",
 
@@ -181,13 +184,26 @@ const FormSignIn = ({
         id="PasswordErrorMsg"
         className="min-h-[1.3rem] text-xs pt-1 text-red-500"
       ></p>
-
-      <button
-        onClick={register}
-        className="w-full p-4 mt-5 mb-7 bg-orange-500 rounded-md text-white outline-2 hover:outline-cyan-400 text-xs font-medium  hover:bg-orange-400"
+      {/* REGISTER BTN */}
+      <div
+        onClick={() => setLoading(true)}
+        className="z-10 relative flex w-auto h-auto justify-center items-center"
       >
-        REGISTER
-      </button>
+        <button
+          onClick={register}
+          type="submit"
+          className="z-99 w-full h-14 my-8 bg-orange-500 rounded-md text-white  outline-2 text-xs font-medium  hover:bg-orange-400"
+        >
+          {!isLoading && <span>REGISTER</span>}
+        </button>
+        {isLoading && (
+          <div
+            className={`absolute flex justify-center items-center w-auto h-auto z-99`}
+          >
+            <LoaderBtn />
+          </div>
+        )}
+      </div>
     </form>
   );
 };
